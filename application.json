@@ -1,3 +1,1 @@
-{
-  "app": "demo"
-}
+{"info":{"_postman_id":"00c5ad57-998c-4a3c-a841-d950fe7fc170","name":"Project Collections","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json","_exporter_id":"project-export"},"item":[{"name":"sdsd","item":[{"name":"https://fake-json-api.mock.beeceptor.com/companies","request":{"method":"GET","header":[],"url":{"raw":"https://fake-json-api.mock.beeceptor.com/companies","protocol":"https","host":["fake-json-api","mock","beeceptor","com"],"path":["companies"],"query":[]},"auth":{"type":"noauth"}},"response":[]}]},{"name":"sss","item":[]}]}
