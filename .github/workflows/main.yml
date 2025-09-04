@@ -2,9 +2,9 @@ name: Run Postman Collection
 
 on:
   push:
-    branches: [ main ]   # Run on every push to main
+    branches: [ new_project ]   # Run on every push to main
   pull_request:          # Or when PR is raised
-    branches: [ main ]
+    branches: [ new_project ]
 
 jobs:
   postman-tests:
