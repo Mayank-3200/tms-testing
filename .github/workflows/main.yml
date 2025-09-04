@@ -24,6 +24,6 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-          newman run api_collection.json \
+          newman run application.json \
             --reporters cli,junit \
             --reporter-junit-export results.xml
