@@ -27,8 +27,11 @@ jobs:
       - name: Run Postman Collection
         run: |
           newman run application.json \
-            --reporters cli,htmlextra \
-            --reporter-htmlextra-export results.html
+          --reporters cli,htmlextra \
+          --reporter-htmlextra-export results.html \
+          --reporter-htmlextra-title "CI/CD Test Report" \
+          --reporter-htmlextra-titleSize 4 \
+          --reporter-htmlextra-showEnvironmentData
 
       - name: Upload TMS Collection HTML Report
         uses: actions/upload-artifact@v4
