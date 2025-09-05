@@ -44,10 +44,10 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          username: moon.blockchaindeveloper@gmail.com
-          password: xcmhuhcjgerxehan
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.PASSWORD }}
           subject: "Postman Test Report"
-          to: "mayank.s@moontechnolabs.com"
-          from: "733de776f4-5d8e28@inbox.mailtrap.io"
+          to: ${{ secrets.TO }}
+          from: ${{ secrets.FROM }}
           body: "Attached is the Postman test run report."
           attachments: results.html
