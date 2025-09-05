@@ -30,7 +30,7 @@ jobs:
             --reporters cli,htmlextra \
             --reporter-htmlextra-export results.html
 
-      - name: Upload Newman HTML Report
+      - name: Upload TMS Collection HTML Report
         uses: actions/upload-artifact@v4
         with:
           name: newman-report
