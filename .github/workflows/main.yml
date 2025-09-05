@@ -2,8 +2,8 @@ name: Run Postman Collection
 
 on:
   push:
-    branches: [ main ]   # Run on every push to main
-  pull_request:          # Or when PR is raised
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -19,11 +19,32 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Install Newman + HTML Reporter
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
 
       - name: Run Postman Collection
         run: |
           newman run application.json \
-            --reporters cli,junit \
-            --reporter-junit-export results.xml
+            --reporters cli,htmlextra \
+            --reporter-htmlextra-export results.html
+
+      - name: Upload Newman HTML Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: newman-report
+          path: results.html
+
+      - name: Send email with report
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: moon.blockchaindeveloper@gmail.com
+          password: xcmhuhcjgerxehan
+          subject: "Postman Test Report"
+          to: "mayank.s@moontechnolabs.com"
+          from: "733de776f4-5d8e28@inbox.mailtrap.io"
+          body: "Attached is the Postman test run report."
+          attachments: results.html
