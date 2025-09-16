@@ -55,7 +55,7 @@ jobs:
 
       - name: Call REST API with summary + HTML report
         run: |
-          curl --location 'http://localhost:5001/api/v1/api-test-runner/get-files' \
+          curl --location 'https://d3f4c03b6b08.ngrok-free.app/api/v1/api-test-runner/get-files' \
             --header 'ngrok-skip-browser-warning: 69420' \
             --header 'Referer: http://localhost:5173/' \
             --header 'User-Agent: GitHubActionsBot/1.0' \
