@@ -53,37 +53,11 @@ jobs:
           echo "FAILED=$failed" >> $GITHUB_ENV
           echo "SKIPPED=$skipped" >> $GITHUB_ENV
 
-      - name: Generate simple HTML summary
-        run: |
-          cat <<EOF > summary.html
-          <html>
-          <head>
-            <style>
-              body { font-family: Arial; display: flex; gap: 20px; }
-              .box { padding: 20px; border-radius: 10px; color: white; font-size: 20px; font-weight: bold; text-align: center; }
-              .total { background: #444; }
-              .passed { background: green; }
-              .failed { background: red; }
-              .skipped { background: orange; }
-            </style>
-          </head>
-          <body>
-            <div class="box total">Total<br>${{ env.TOTAL }}</div>
-            <div class="box passed">Passed<br>${{ env.PASSED }}</div>
-            <div class="box failed">Failed<br>${{ env.FAILED }}</div>
-            <div class="box skipped">Skipped<br>${{ env.SKIPPED }}</div>
-          </body>
-          </html>
-          EOF
-
       - name: Call REST API with summary + HTML report
         run: |
           curl --location 'https://d3f4c03b6b08.ngrok-free.app/api/v1/api-test-runner/get-files' \
-            --header 'ngrok-skip-browser-warning: 69420' \
-            --header 'Referer: http://localhost:5173/' \
-            --header 'User-Agent: GitHubActionsBot/1.0' \
             --header 'Accept: application/json, text/plain, */*' \
-            -F "attachments=@summary.html;type=text/html" \
+            -F "attachments=@results.html;type=text/html" \
             -F "total=${{ env.TOTAL }}" \
             -F "pass=${{ env.PASSED }}" \
             -F "failed=${{ env.FAILED }}" \
