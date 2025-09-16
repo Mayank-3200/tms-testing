@@ -37,7 +37,34 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: newman-report
-          path: results.html
+          path: |
+            results.html
+            results.json
+      - name: Extract JSON summary
+        id: extract
+        run: |
+          summary=$(jq '{total: .run.stats.tests.total, passed: .run.stats.tests.passed, failed: .run.stats.tests.failed, skipped: .run.stats.tests.skipped}' results.json)
+          echo "SUMMARY=$summary" >> $GITHUB_ENV
+
+      - name: Call REST API with summary + HTML report
+        run: |
+          # Extract counts from JSON
+          total=$(jq '.run.stats.tests.total' results.json)
+          passed=$(jq '.run.stats.tests.passed' results.json)
+          failed=$(jq '.run.stats.tests.failed' results.json)
+          skipped=$(jq '.run.stats.tests.skipped' results.json)
+
+          # Call your API with file + counts
+          curl --location 'http://localhost:5001/api/v1/api-test-runner/get-files' \
+            --header 'ngrok-skip-browser-warning: 69420' \
+            --header 'Referer: http://localhost:5173/' \
+            --header 'User-Agent: GitHubActionsBot/1.0' \
+            --header 'Accept: application/json, text/plain, */*' \
+            -F "attachments=@results.html;type=text/html" \
+            -F "total=$total" \
+            -F "pass=$passed" \
+            -F "failed=$failed" \
+            -F "skip=$skipped"
 
       - name: Send email with report
         uses: dawidd6/action-send-mail@v3
