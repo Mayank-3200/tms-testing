@@ -55,13 +55,15 @@ jobs:
 
       - name: Call REST API with summary + HTML report
         run: |
-          curl --location 'https://d3f4c03b6b08.ngrok-free.app/api/v1/api-test-runner/get-files' \
+          curl --location 'https://888044457655.ngrok-free.app/api/v1/api-test-runner/get-files' \
             --header 'Accept: application/json, text/plain, */*' \
             -F "attachments=@results.html;type=text/html" \
             -F "total=${{ env.TOTAL }}" \
             -F "pass=${{ env.PASSED }}" \
             -F "failed=${{ env.FAILED }}" \
-            -F "skip=${{ env.SKIPPED }}"
+            -F "skip=${{ env.SKIPPED }}" \
+            -F "projectId=MjY=" \
+            -F "email=${{ secrets.EMAIL_USER }}" 
 
       - name: Send email with report
         uses: dawidd6/action-send-mail@v3
