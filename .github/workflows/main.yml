@@ -62,7 +62,7 @@ jobs:
             -F "pass=${{ env.PASSED }}" \
             -F "failed=${{ env.FAILED }}" \
             -F "skip=${{ env.SKIPPED }}" \
-            -F "projectId=MjY=" \
+            -F "projectId=NzA=" \
             -F "email=${{ secrets.EMAIL_USER }}" 
 
       - name: Send email with report
